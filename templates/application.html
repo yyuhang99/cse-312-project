@@ -1,65 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
-  <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
-  <title>Comment Section</title>
-</head>
-<body>
-  <div class="main">
-    <div class="nav-bar">
-      <div class="left-nav">
-        <a href="index.html"><img src="" />🗣️</a>
-        <h1>Yappers</h1>
-      </div>
-      <div class="right-nav">
-        <h3 class="username">{{Username}}</h3>
-        <img class="avatar" src="/static/img/Profile-Avatar-PNG-Picture.png" />
-        <div class="logout">
-          <form action="/logout" method="post" enctype="application/x-www-form-urlencoded">
-            <input type="submit" value="Logout" />
-          </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+    <title>Comment Section</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="nav-bar">
+        <div class="left-nav">
+          <a href="index.html"><img src="" />🗣️</a>
+          <h1>Yappers</h1>
         </div>
-      </div>
-    </div>
-    <div class="feed">
-      <div class="post-main">
-        <div class="create-post">
-          <div class="create-header">
-            <img id="post-avatar" class="avatar" src="/static/img/Profile-Avatar-PNG-Picture.png" />
-            <h3 class="username">{{Username}}</h3>
-          </div>
-          <div class="create-body">
-            <textarea id="post-text" class="create-text" placeholder="Yap here" cols="50" rows="10"></textarea>
-          </div>
-          <div class="create-footer">
-            <button id="post-button" class="post-button" onclick="sendPost()">Post</button>
+        <div class="right-nav">
+          <h3 class="username">{{Username}}</h3>
+          <img
+            class="avatar"
+            src="/static/img/Profile-Avatar-PNG-Picture.png"
+          />
+          <div class="logout">
+            <form
+              action="/logout"
+              method="post"
+              enctype="application/x-www-form-urlencoded"
+            >
+              <input type="submit" value="Logout" />
+            </form>
           </div>
         </div>
       </div>
+      <div class="feed">
+        <div class="post-main">
+          <div class="create-post">
+            <div class="create-header">
+              <img
+                id="post-avatar"
+                class="avatar"
+                src="/static/img/Profile-Avatar-PNG-Picture.png"
+              />
+              <h3 class="username">{{Username}}</h3>
+            </div>
+            <div class="create-body">
+              <textarea
+                id="post-text"
+                class="create-text"
+                placeholder="Yap here"
+                cols="50"
+                rows="10"
+              ></textarea>
+            </div>
+            <div class="create-footer">
+              <div>
+                <form action="/create_post" method="post">
+                  <input class="post-button" type="submit" value="Post" />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <script>
-    function sendPost() {
-        const postTextBox = document.querySelector(".create-text"); // Corrected selector
-        const message = postTextBox.value; // value of the post or message
-        postTextBox.value = "";
-        
-        // Using AJAX
-        const request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                console.log(this.response);
-            }
-        }
-        const messageJSON = { "content": message };
-        request.open("POST", "/create_post"); // path for sending post
-        request.send(JSON.stringify(messageJSON));
-        postTextBox.focus();
-    }
-  </script>
-</body>
+    <script src="/static/function.js"></script>
+  </body>
 </html>
