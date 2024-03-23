@@ -52,20 +52,26 @@ def register():
 
 @app.route('/create_post', methods=['POST'])
 def create_post():
+    return send_from_directory('static', 'holycow.png')
+
+    print("Reached the create_post() route")  # Debug statement added
+    username = request.form.get('username')  # Assuming you have a field with name 'username' in the HTML form
+    content = request.form.get('post-text')  # Assuming you have a textarea with id 'post-text' in the HTML form
+    # Validate data
+    if not username:
+        return jsonify({'error': 'Username is required'}), 400
+    if not content:
+        return jsonify({'error': 'Post content is required'}), 400
+
+    # Perform authentication (if needed)
     auth_token = request.cookies.get('auth')
     if not auth_token:
         return jsonify({'error': 'Authentication required'}), 401
-    username = getUsername(auth_token, auth_collection)
-    if not username:
-        return jsonify({'error': 'Invalid authentication token'}), 401
-    content = request.json.get('content')
-    if not content:
-        return jsonify({'error': 'Post content is required'}), 400
-        new_post = {
+    new_post = {
         'author': username,
         'content': content
     }
-    posts_collection.insert_one(new_post)
+
     return jsonify({'message': 'Post created successfully', 'author': username}), 201
 
 

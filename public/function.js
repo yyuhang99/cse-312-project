@@ -21,10 +21,11 @@ function clearPostMain(){
     postMain.innerHTML = "";
 }
 
-function sendPost(){
-    const postTextBox = document.querySelector("create-text");
-    const message = postTextBox.value; //value of the post or message
+function sendPost() {
+    const postTextBox = document.querySelector(".create-text"); // Corrected selector
+    const message = postTextBox.value; // value of the post or message
     postTextBox.value = "";
+    
     // Using AJAX
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -32,11 +33,18 @@ function sendPost(){
             console.log(this.response);
         }
     }
-    const messageJSON = {"content": message};
+    const messageJSON = { "content": message };
     request.open("POST", "/create_post"); // path for sending post
+    print("got json")
     request.send(JSON.stringify(messageJSON));
     postTextBox.focus();
 }
+
+// Add event listener to the "Post" button
+document.addEventListener('DOMContentLoaded', function() {
+    var postButton = document.getElementById('post-button');
+    postButton.addEventListener('click', sendPost);
+});
 
 //handle the html and display of post here
 function displayPost(){
