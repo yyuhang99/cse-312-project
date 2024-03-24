@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from flask import Flask, render_template, request, send_from_directory, make_response, redirect, session, url_for, jsonify
 from markupsafe import escape
 from util.auth import *
+import html
 
 app = Flask(__name__)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
@@ -21,6 +22,7 @@ auth_collection = db["auth"]
 def add_security_headers(response):
     response.headers['X-Content-Type-Options'] = 'nosniff'
     return response
+
 
 
 @app.route('/')
@@ -52,14 +54,14 @@ def register():
 
 @app.route('/create_post', methods=['POST'])
 def create_post():
-    return send_from_directory('static', 'holycow.png')
-
-    print("Reached the create_post() route")  # Debug statement added
-    username = request.form.get('username')  # Assuming you have a field with name 'username' in the HTML form
-    content = request.form.get('post-text')  # Assuming you have a textarea with id 'post-text' in the HTML form
+    printMsg("Reached the create_post() route")  # Debug statement added
+    content = request.form  # Corrected to match the id attribute in the HTML form
+    #content = html.escape(content)
+    #print(username)  # Debug statement added
+    printMsg(content)  # Debug statement added
     # Validate data
-    if not username:
-        return jsonify({'error': 'Username is required'}), 400
+   # if not username:
+   #     return jsonify({'error': 'Username is required'}), 400
     if not content:
         return jsonify({'error': 'Post content is required'}), 400
 

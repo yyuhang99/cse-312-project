@@ -21,7 +21,7 @@ function clearPostMain() {
 }
 
 function sendPost() {
-  const postTextBox = document.querySelector(".create-text"); // Corrected selector
+  const postTextBox = document.querySelector(".chat-text-box"); // Corrected selector
   const message = postTextBox.value; // value of the post or message
   postTextBox.value = "";
 
