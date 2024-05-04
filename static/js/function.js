@@ -569,6 +569,15 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.getElementById('luck-upgrade-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.luck_cost} gold)`;
             }
+
+            document.getElementById('defense-upgrade-stat').innerHTML = `Defense: <b> ${data.defense} %</b>`;
+
+            if (data.upgrades.defense_cost == "max") {
+                document.getElementById('defense-upgrade-button').innerHTML = `<b>Max Upgrade!</b>`;
+                document.getElementById('defense-upgrade-button').disabled = true
+            } else {
+                document.getElementById('defense-upgrade-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.defense_cost} gold)`;
+            }
             
         }
 

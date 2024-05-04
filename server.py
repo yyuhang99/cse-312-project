@@ -65,7 +65,17 @@ gilbert_upgrade_prices = {
         "upgrade_value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         "upgrade_cost": [100, 200, 500, 1000, 1500, 2500, 3500, 5000, 7600, 10000, 20000, 30000, 40000, 50000, 100000, 'max'],
         "maximum_upgrade": 14
-    }
+    },
+    "HealthPot": {
+        "upgrade_value": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+        "upgrade_cost": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 'max'],
+        "maximum_upgrade": 14
+    },
+    "GoldFarm": {
+        "upgrade_value": [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
+        "upgrade_cost": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 'max'],
+        "maximum_upgrade": 14
+    },
 }
 
 debug = False
@@ -285,10 +295,10 @@ def handle_shop_interaction(upgrade_type):
         if upgrade_type == "health": 
             gilbert_stats["max_health"] = gilbert_upgrade_prices.get(upgrade_type).get("upgrade_value")[current_upgrade_level]
             gilbert_stats["health"] += 10
+        elif upgrade_type == "HealthPot":
+            gilbert_stats["health"] += min(gilbert_stats["max_health"]-gilbert_stats["health"] ,10)
         else:
             gilbert_stats[upgrade_type] = gilbert_upgrade_prices.get(upgrade_type).get("upgrade_value")[current_upgrade_level]
-
-        socket.emit('upgrade_purchase', {"upgrade_type": upgrade_type, "username": session.get("username"), "level": current_upgrade_level + 1, "successful": True})
 
         # send gilbert stats
         socket.emit('recieve_gilbert_stats', gilbert_stats)
@@ -501,7 +511,10 @@ def send_updates():
                 if (int(time.time())) % 5 == 0:
                     gilbert_stats["health"] = min(gilbert_stats.get("max_health"), gilbert_stats.get("health") + gilbert_stats.get("regen"))
 
-
+            if gilbert_stats.get("stage") >= 3:
+                # Gold farm implementation
+                if (int(time.time())) % 2 == 0:
+                    gilbert_stats["gold"] = gilbert_stats.get("gold") + gilbert_stats.get("GoldFarm")
 
 
             # at the end of all this logic, emit the stats       
