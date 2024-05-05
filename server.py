@@ -11,15 +11,26 @@ from util.enemies import *
 from flask import session
 from flask_socketio import SocketIO, emit
 import threading
+from collections import defaultdict
+from time import time
 
-
+def rate_limiter():
+    ip = request.remote_addr
+    current_time = time()
+    request_counters[ip] = [t for t in request_counters[ip] if current_time - t < 10]
+    if len(request_counters[ip]) >= 50:
+        return jsonify({"error": "Too Many Requests"}), 429
+    request_counters[ip].append(current_time)
+    
 app = Flask(__name__)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['UPLOAD_FOLDER'] = 'static'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.secret_key = 'cse312secretkeymoment1612!'
+app.before_request(rate_limiter)
 socket = SocketIO(app)
 socket.init_app(app, cors_allowed_origins="*")
+request_counters = defaultdict(list)
 
 statistics = {
     "posts_created": 0,
