@@ -570,16 +570,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('luck-upgrade-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.luck_cost} gold)`;
             }
 
-            document.getElementById('HealthPot-stat').innerHTML = `Health gain:  <b> ${data.HealthPot} %</b>`;
-
-            if (data.upgrades.luck_cost == "max") {
-                document.getElementById('HealthPot-button').innerHTML = `<b>Max Upgrade!</b>`;
-                document.getElementById('HealthPot-button').disabled = true
-            } else {
-                document.getElementById('HealthPot-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.HealthPot_cost} gold)`;
-            }
-
-            document.getElementById('GoldFarm-stat').innerHTML = `Gold gain:  <b> ${data.GoldFarm} %</b>`;
+            // gold
+            document.getElementById('GoldFarm-stat').innerHTML = `Gold gain:  <b> ${data.GoldFarm} Gold</b>`;
 
             if (data.upgrades.luck_cost == "max") {
                 document.getElementById('GoldFarm-button').innerHTML = `<b>Max Upgrade!</b>`;

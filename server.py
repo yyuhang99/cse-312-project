@@ -290,8 +290,6 @@ def handle_shop_interaction(upgrade_type):
         if upgrade_type == "health": 
             gilbert_stats["max_health"] = gilbert_upgrade_prices.get(upgrade_type).get("upgrade_value")[current_upgrade_level]
             gilbert_stats["health"] += 10
-        elif upgrade_type == "HealthPot":
-            gilbert_stats["health"] += min(gilbert_stats["max_health"]-gilbert_stats["health"] ,10)
         else:
             gilbert_stats[upgrade_type] = gilbert_upgrade_prices.get(upgrade_type).get("upgrade_value")[current_upgrade_level]
 
