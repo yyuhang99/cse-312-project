@@ -12,11 +12,10 @@ from flask import session
 from flask_socketio import SocketIO, emit
 import threading
 from collections import defaultdict
-from time import time
 
 def rate_limiter():
     ip = request.remote_addr
-    current_time = time()
+    current_time = int(time.time())
     request_counters[ip] = [t for t in request_counters[ip] if current_time - t < 10]
     if len(request_counters[ip]) >= 50:
         return jsonify({"error": "Too Many Requests"}), 429
