@@ -14,7 +14,14 @@ import threading
 from collections import defaultdict
 from time import time
 
-
+def rate_limiter():
+    ip = request.remote_addr
+    current_time = time()
+    request_counters[ip] = [t for t in request_counters[ip] if current_time - t < 10]
+    if len(request_counters[ip]) >= 50:
+        return jsonify({"error": "Too Many Requests"}), 429
+    request_counters[ip].append(current_time)
+    
 app = Flask(__name__)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['UPLOAD_FOLDER'] = 'static'
@@ -410,13 +417,6 @@ def handle_disconnect():
 
 
 #* Util *#
-def rate_limiter():
-    ip = request.remote_addr
-    current_time = time()
-    request_counters[ip] = [t for t in request_counters[ip] if current_time - t < 10]
-    if len(request_counters[ip]) >= 50:
-        return jsonify({"error": "Too Many Requests"}), 429
-    request_counters[ip].append(current_time)
 def error_handler(e):
     print('An error occurred:', e)
 
