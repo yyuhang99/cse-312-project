@@ -91,22 +91,6 @@
     inset 2px 2px var(--button-highlight)
 }
 
-@font-face {
-  font-family: "Pixelated MS Sans Serif";
-  src: url("fonts/converted/ms_sans_serif.woff") format("woff");
-  src: url("fonts/converted/ms_sans_serif.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Pixelated MS Sans Serif";
-  src: url("fonts/converted/ms_sans_serif_bold.woff") format("woff");
-  src: url("fonts/converted/ms_sans_serif_bold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
-}
-
 body {
   font-family: Arial;
   font-size: 12px;
@@ -125,7 +109,6 @@ ul.tree-view,
 .window,
 .title-bar,
 li[role=tab] {
-  font-family: "Pixelated MS Sans Serif", Arial;
   -webkit-font-smoothing: none;
   font-size: 11px;
 }

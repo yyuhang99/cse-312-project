@@ -12,13 +12,15 @@ from flask import session
 from flask_socketio import SocketIO, emit
 import threading
 from collections import defaultdict
-from time import time
 
 def rate_limiter():
     ip = request.remote_addr
-    current_time = time()
+    current_time = (time.time())
+    if (current_time - block_times.get(ip, 0) < 30):
+        return jsonify({"error": "Too Many Requests"}), 429
     request_counters[ip] = [t for t in request_counters[ip] if current_time - t < 10]
     if len(request_counters[ip]) >= 50:
+        block_times[ip] = current_time
         return jsonify({"error": "Too Many Requests"}), 429
     request_counters[ip].append(current_time)
     
@@ -31,6 +33,7 @@ app.before_request(rate_limiter)
 socket = SocketIO(app)
 socket.init_app(app, cors_allowed_origins="*")
 request_counters = defaultdict(list)
+block_times = defaultdict(float)
 
 statistics = {
     "posts_created": 0,
@@ -76,7 +79,12 @@ gilbert_upgrade_prices = {
         "upgrade_value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         "upgrade_cost": [100, 200, 500, 1000, 1500, 2500, 3500, 5000, 7600, 10000, 20000, 30000, 40000, 50000, 100000, 'max'],
         "maximum_upgrade": 14
-    }
+    },
+    "GoldFarm": {
+        "upgrade_value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "upgrade_cost": [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2500, 5000, 10000, 'max'],
+        "maximum_upgrade": 14
+    },
 }
 
 debug = False
@@ -299,10 +307,9 @@ def handle_shop_interaction(upgrade_type):
         else:
             gilbert_stats[upgrade_type] = gilbert_upgrade_prices.get(upgrade_type).get("upgrade_value")[current_upgrade_level]
 
-        socket.emit('upgrade_purchase', {"upgrade_type": upgrade_type, "username": session.get("username"), "level": current_upgrade_level + 1, "successful": True})
-
         # send gilbert stats
         socket.emit('recieve_gilbert_stats', gilbert_stats)
+        socket.emit('upgrade_purchase', {"upgrade_type": upgrade_type, "username": session.get("username"), "level": current_upgrade_level + 1, "successful": True})
 
 
 
@@ -493,7 +500,7 @@ def send_updates():
                 
 
 
-                if ((int(time.time()) + 5) % 15 == 0) or (gilbert_stats.get("level") >= 12 and int(time.time()) % 53 == 0) or (gilbert_stats.get("level") >= 25 and int(time.time() + 3) % 169 == 0):
+                if ((int(time.time()) + 5) % 16 == 0) or (gilbert_stats.get("level") >= 13 and int(time.time()) % 48 == 0) or (gilbert_stats.get("level") >= 23 and int(time.time() + 3) % 120 == 0):
                     if len(gilbert_enemies_dict) <= 15:
                         # BOSS: don't spawn enemies if alive boss exists
                         # generate a group of enemies based on gilbert's level
@@ -512,7 +519,10 @@ def send_updates():
                 if (int(time.time())) % 5 == 0:
                     gilbert_stats["health"] = min(gilbert_stats.get("max_health"), gilbert_stats.get("health") + gilbert_stats.get("regen"))
 
-
+            if gilbert_stats.get("stage") >= 3:
+                # Gold farm implementation
+                if (int(time.time())) % 5 == 0:
+                    gilbert_stats["gold"] = gilbert_stats.get("gold") + gilbert_stats.get("GoldFarm")
 
 
             # at the end of all this logic, emit the stats       

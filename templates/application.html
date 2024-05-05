@@ -194,7 +194,7 @@
 		</div>
 
 
-		<div class="window upgrades draggable" style="top: 140px; left: 740px" id="gilbert_upgrades" hidden>
+		<div class="window upgrades draggable" style="top: 140px; left: 880px" id="gilbert_upgrades" hidden>
 			<div class="title-bar cyan">
 				<div class="title-bar-text">
 					🛠️ Gilbert Upgrades
@@ -210,6 +210,7 @@
 				</div>
 				<menu role="tablist">
 					<li role="tab" id="shop-tab-label-3" onclick="setActiveWindow('3')" aria-selected="true"><a class="text-shadow">🌼 Health</a></li>
+					<li role="tab" id="shop-tab-label-6" onclick="setActiveWindow('6')"><a class="text-shadow">⛏️ Gold</a></li>
 					<li role="tab" id="shop-tab-label-2" onclick="setActiveWindow('2')"><a class="text-shadow">🛡️ Defense</a></li>
 					<li role="tab" id="shop-tab-label-1" onclick="setActiveWindow('1')"><a class="text-shadow" >🗡️ Damage</a></li>
 					<li role="tab" id="shop-tab-label-5" onclick="setActiveWindow('5')"><a class="text-shadow">🔮 Luck</a></li>
@@ -276,6 +277,20 @@
 							<i>Upgrade the chance to spawn loot instead of enemies!</i>
 							<section class="field-row" style="justify-content: center; margin-top: 7px">
 								<button class="like-btn" onclick="shopInteraction('luck')" id="luck-upgrade-button"><b>Upgrade</b> (30 gold)</button>
+							</section>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="window" role="tabpanel" id="shop-tab-6" hidden>
+					<div class="window-body">
+						<div class="centerGilbert">
+							<p class="shop-anim rotate-vert-center" style="font-size: 55px; padding: 3px; margin: 3px; text-shadow: 2px 1px 2px rgba(3, 3, 3, 0.549)">⛏️</p>
+							<p class="text-shadow" style="font-size: 13px" id="GoldFarm-stat">Gold gain: <b> 0 Gold</b></p>
+							<i>Upgrade the amount of Gold you make every 5 seconds!</i>
+							<section class="field-row" style="justify-content: center; margin-top: 7px">
+								<button class="like-btn" onclick="shopInteraction('GoldFarm')" id="GoldFarm-upgrade-button"><b>Upgrade</b> (10 gold)</button>
 							</section>
 						</div>
 					</div>

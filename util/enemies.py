@@ -25,7 +25,7 @@ def spawn_enemy(gilbert_level, luck, enemies_defeated):
     if gilbert_level >= 0:
         
         if random.randint(0,2):
-            amount_of_enemies = max(1,min(amount_of_enemies, 8))
+            amount_of_enemies = max(1,min(amount_of_enemies, 8)) + random.randint(0,1)
             for i in range(amount_of_enemies):
                 mouse = create_mouse(gilbert_level)
                 enemy_dict[mouse["id"]] = mouse
@@ -53,7 +53,7 @@ def spawn_enemy(gilbert_level, luck, enemies_defeated):
                 enemy_dict[enemy["id"]] = enemy
 
         elif random.randint(1,3) == 1:
-            amount_of_enemies = max(1,min(amount_of_enemies + 2, 10))
+            amount_of_enemies = max(3,min(amount_of_enemies + 2, 10))
             for i in range(amount_of_enemies):
                 enemy = create_bat(gilbert_level)
                 enemy_dict[enemy["id"]] = enemy
@@ -75,7 +75,7 @@ def spawn_enemy(gilbert_level, luck, enemies_defeated):
 
         # new enemy generation
         if random.randint(1,4) == 1:
-            amount_of_enemies = max(1,min(amount_of_enemies, 7))
+            amount_of_enemies = max(1,min(amount_of_enemies, 7)) + 2
             for i in range(amount_of_enemies):
                 enemy = create_shrimp(gilbert_level)
                 enemy_dict[enemy["id"]] = enemy
@@ -91,6 +91,10 @@ def spawn_enemy(gilbert_level, luck, enemies_defeated):
             for i in range(amount_of_enemies):
                 enemy = create_puffer(gilbert_level)
                 enemy_dict[enemy["id"]] = enemy
+
+        elif random.randint(1,70) == 1 and gilbert_level >= 18:
+            enemy = create_moai(gilbert_level)
+            enemy_dict[enemy["id"]] = enemy
 
         else:
             amount_of_enemies = max(1,min(amount_of_enemies - 5, 3))
@@ -117,7 +121,7 @@ def create_rat(level):
     "seconds_til_attack": random.randint(1, 4), 
     "attack_seconds": 5,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(5 * level_multiplier),
+    "gold_drop": math.floor(6 * level_multiplier),
     "xp_drop": min(math.floor(random.randint(2, 6) * level_multiplier), 10),
     "health_drop": random.randint(0,2),
     "id": str(uuid.uuid4()),
@@ -143,7 +147,7 @@ def create_mouse(level):
     "seconds_til_attack": random.randint(2, 5), 
     "attack_seconds": 2,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(2 * level_multiplier),
+    "gold_drop": math.floor(3 * level_multiplier),
     "xp_drop":  min(math.floor(random.randint(1, 3) * level_multiplier), 5),
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 75),
@@ -169,7 +173,7 @@ def create_bonus(level):
     "seconds_til_attack": 1000, 
     "attack_seconds": 20,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(13 * level_multiplier) + 5,
+    "gold_drop": math.floor(15 * level_multiplier) + 5,
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 75),
     "left": random.randint(1, 80),
@@ -231,7 +235,7 @@ def create_spider(level):
     "seconds_til_attack": random.randint(2, 5), 
     "attack_seconds": 3,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(2 * level_multiplier),
+    "gold_drop": math.floor(8 * level_multiplier),
     "xp_drop":  math.floor(random.randint(3, 5) * level_multiplier),
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 5),
@@ -256,9 +260,9 @@ def create_snake(level):
     "seconds_til_attack": random.randint(10, 20), 
     "attack_seconds": 10,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(5 * level_multiplier),
+    "gold_drop": math.floor(10 * level_multiplier),
     "xp_drop":  math.floor(random.randint(4, 5) * level_multiplier),
-    "health_drop": math.floor(level_multiplier),
+    "health_drop": math.floor(level_multiplier) + 3,
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 65),
     "left": random.randint(1, 80),
@@ -283,7 +287,7 @@ def create_bat(level):
     "seconds_til_attack": 2, 
     "attack_seconds": 1,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(3 * level_multiplier),
+    "gold_drop": math.floor(5 * level_multiplier),
     "xp_drop":  math.floor(1 * level_multiplier),
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 65),
@@ -308,7 +312,7 @@ def create_shrimp(level):
     "seconds_til_attack": 0, 
     "attack_seconds": 0,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(4 * level_multiplier),
+    "gold_drop": math.floor(6 * level_multiplier),
     "xp_drop":  math.floor(1 * level_multiplier),
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 65),
@@ -330,11 +334,11 @@ def create_shark(level):
     "emoji": "🦈",
     "level": 20,
     "health": min(math.floor(3 * level_multiplier), 18),
-    "damage_to_gilbert": 10,
+    "damage_to_gilbert": 10 + math.floor(level_multiplier),
     "seconds_til_attack": 2, 
     "attack_seconds": 6,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(10 * level_multiplier) + 10,
+    "gold_drop": math.floor(15 * level_multiplier) + 10,
     "xp_drop":  math.floor(3 * level_multiplier),
     "health_drop": math.floor(level_multiplier) + 3,
     "id": str(uuid.uuid4()),
@@ -361,7 +365,7 @@ def create_jellyfish(level):
     "seconds_til_attack": 10, 
     "attack_seconds": 3,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(8 * level_multiplier) + 3,
+    "gold_drop": math.floor(12 * level_multiplier) + 3,
     "xp_drop":  math.floor(3 * level_multiplier),
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 65),
@@ -379,7 +383,7 @@ def create_puffer(level):
 
     enemy = {
     "name": "Pufferfish",
-    "description": "a spiky pufferfish! fast attack!",
+    "description": "a spiky pufferfish! health scales with level!",
     "emoji": "🐡",
     "level": 14,
     "health": math.floor(5 * level_multiplier),
@@ -387,7 +391,7 @@ def create_puffer(level):
     "seconds_til_attack": 5, 
     "attack_seconds": 1,
     "item_drops": {"health_potion" : 1},
-    "gold_drop": math.floor(6 * level_multiplier) + 10,
+    "gold_drop": math.floor(9 * level_multiplier) + 10,
     "xp_drop":  math.floor(3 * level_multiplier),
     "id": str(uuid.uuid4()),
     "top": random.randint(1, 65),
@@ -403,17 +407,17 @@ def create_moai(level):
 
     enemy = {
     "name": "Moai head",
-    "description": "will kill you in 30 seconds.",
+    "description": "will kill you in 60 seconds.",
     "emoji": "🗿",
     "level": 50,
     "health": 50,
-    "damage_to_gilbert": 50,
-    "seconds_til_attack": 30, 
-    "attack_seconds": 30,
+    "damage_to_gilbert": 100,
+    "seconds_til_attack": 60, 
+    "attack_seconds": 60,
     "item_drops": {"health_potion" : 1},
     "gold_drop": math.floor(250 * level_multiplier) + 10,
-    "xp_drop":  math.floor(25 * level_multiplier),
-    "health_drop":  math.floor(25 * level_multiplier) + 3,
+    "xp_drop":  math.floor(35 * level_multiplier),
+    "health_drop":  math.floor(50 * level_multiplier) + 3,
     "id": str(uuid.uuid4()),
     "top": random.randint(30, 50),
     "left": random.randint(30, 70),
