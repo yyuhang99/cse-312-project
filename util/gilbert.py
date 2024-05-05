@@ -186,6 +186,12 @@ def set_initial_gilbert(debug = False):
         # higher chance to spawn loot bags
         "luck": 0,
         "luck_cost": 100,
+        # healths gilbert a small amount x amount of times
+        "HealthPot" : 0,
+        "HealthPot_cost" : 10,
+        # Gold farm implementation
+        "GoldFarm" : 0,
+        "GoldFarm_cost" : 10
     }
 
     gilbert_stats = {
@@ -205,6 +211,7 @@ def set_initial_gilbert(debug = False):
         "defense": 0,
         "max_health": 100,
         "regen": 0,
+        "GoldFarm": 0,
         "luck": 0,
         "enemies_defeated": 0,
 
