@@ -15,12 +15,12 @@ from collections import defaultdict
 
 def rate_limiter():
     ip = request.remote_addr
-    current_time = int(time.time())
-    if (block_times[ip] - current_time < 30):
+    current_time = (time.time())
+    if (current_time - block_times.get(ip, 0) < 30):
         return jsonify({"error": "Too Many Requests"}), 429
     request_counters[ip] = [t for t in request_counters[ip] if current_time - t < 10]
     if len(request_counters[ip]) >= 50:
-        block_times[ip].append(current_time)
+        block_times[ip] = current_time
         return jsonify({"error": "Too Many Requests"}), 429
     request_counters[ip].append(current_time)
     
@@ -33,7 +33,7 @@ app.before_request(rate_limiter)
 socket = SocketIO(app)
 socket.init_app(app, cors_allowed_origins="*")
 request_counters = defaultdict(list)
-block_times = defaultdict(int)
+block_times = defaultdict(float)
 
 statistics = {
     "posts_created": 0,
