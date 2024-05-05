@@ -571,13 +571,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // gold
-            document.getElementById('GoldFarm-stat').innerHTML = `Gold gain:  <b> ${data.GoldFarm} Gold</b>`;
+            document.getElementById('GoldFarm-stat').innerHTML = `Passive Gold:  <b> ${data.GoldFarm}</b> gold`;
 
             if (data.upgrades.luck_cost == "max") {
-                document.getElementById('GoldFarm-button').innerHTML = `<b>Max Upgrade!</b>`;
-                document.getElementById('GoldFarm-button').disabled = true
+                document.getElementById('GoldFarm-upgrade-button').innerHTML = `<b>Max Upgrade!</b>`;
+                document.getElementById('GoldFarm-upgrade-button').disabled = true
             } else {
-                document.getElementById('GoldFarm-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.GoldFarm_cost} gold)`;
+                document.getElementById('GoldFarm-upgrade-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.GoldFarm_cost} gold)`;
             }
 
             

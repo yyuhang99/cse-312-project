@@ -81,8 +81,8 @@ gilbert_upgrade_prices = {
         "maximum_upgrade": 14
     },
     "GoldFarm": {
-        "upgrade_value": [2, 4, 6, 8, 10, 14, 20, 26, 30, 34, 40, 42, 50, 55, 60],
-        "upgrade_cost": [20, 40, 80, 120, 200, 300, 400, 500, 700, 800, 1000, 1200, 2000, 3000, 5000, 'max'],
+        "upgrade_value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "upgrade_cost": [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2500, 5000, 10000, 'max'],
         "maximum_upgrade": 14
     },
 }
@@ -309,6 +309,7 @@ def handle_shop_interaction(upgrade_type):
 
         # send gilbert stats
         socket.emit('recieve_gilbert_stats', gilbert_stats)
+        socket.emit('upgrade_purchase', {"upgrade_type": upgrade_type, "username": session.get("username"), "level": current_upgrade_level + 1, "successful": True})
 
 
 
@@ -499,7 +500,7 @@ def send_updates():
                 
 
 
-                if ((int(time.time()) + 5) % 15 == 0) or (gilbert_stats.get("level") >= 12 and int(time.time()) % 53 == 0) or (gilbert_stats.get("level") >= 25 and int(time.time() + 3) % 169 == 0):
+                if ((int(time.time()) + 5) % 16 == 0) or (gilbert_stats.get("level") >= 13 and int(time.time()) % 48 == 0) or (gilbert_stats.get("level") >= 23 and int(time.time() + 3) % 120 == 0):
                     if len(gilbert_enemies_dict) <= 15:
                         # BOSS: don't spawn enemies if alive boss exists
                         # generate a group of enemies based on gilbert's level
@@ -520,7 +521,7 @@ def send_updates():
 
             if gilbert_stats.get("stage") >= 3:
                 # Gold farm implementation
-                if (int(time.time())) % 4 == 0:
+                if (int(time.time())) % 5 == 0:
                     gilbert_stats["gold"] = gilbert_stats.get("gold") + gilbert_stats.get("GoldFarm")
 
 

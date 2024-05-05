@@ -191,7 +191,7 @@ def set_initial_gilbert(debug = False):
         "HealthPot_cost" : 10,
         # Gold farm implementation
         "GoldFarm" : 0,
-        "GoldFarm_cost" : 10
+        "GoldFarm_cost" : 25
     }
 
     gilbert_stats = {
