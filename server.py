@@ -66,14 +66,9 @@ gilbert_upgrade_prices = {
         "upgrade_cost": [100, 200, 500, 1000, 1500, 2500, 3500, 5000, 7600, 10000, 20000, 30000, 40000, 50000, 100000, 'max'],
         "maximum_upgrade": 14
     },
-    "HealthPot": {
-        "upgrade_value": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-        "upgrade_cost": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 'max'],
-        "maximum_upgrade": 14
-    },
     "GoldFarm": {
-        "upgrade_value": [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30],
-        "upgrade_cost": [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 'max'],
+        "upgrade_value": [2, 4, 6, 8, 10, 14, 20, 26, 30, 34, 40, 42, 50, 55, 60],
+        "upgrade_cost": [20, 40, 80, 120, 200, 300, 400, 500, 700, 800, 1000, 1200, 2000, 3000, 5000, 'max'],
         "maximum_upgrade": 14
     },
 }
@@ -513,7 +508,7 @@ def send_updates():
 
             if gilbert_stats.get("stage") >= 3:
                 # Gold farm implementation
-                if (int(time.time())) % 2 == 0:
+                if (int(time.time())) % 4 == 0:
                     gilbert_stats["gold"] = gilbert_stats.get("gold") + gilbert_stats.get("GoldFarm")
 
 
