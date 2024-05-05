@@ -12,7 +12,6 @@ from flask import session
 from flask_socketio import SocketIO, emit
 import threading
 from collections import defaultdict
-from time import time
 
 def rate_limiter():
     ip = request.remote_addr
@@ -27,7 +26,6 @@ app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['UPLOAD_FOLDER'] = 'static'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.secret_key = 'cse312secretkeymoment1612!'
-app.before_request(rate_limiter)
 socket = SocketIO(app)
 socket.init_app(app, cors_allowed_origins="*")
 request_counters = defaultdict(list)
@@ -151,7 +149,10 @@ def register():
 
 @app.route('/send_posts', methods=['GET'])
 def send_posts():
-    return send_all_posts(posts_collection, profile_image_collection)
+    try:
+        return send_all_posts(posts_collection, profile_image_collection)
+    except:
+        return jsonify({'messagetpye not found'}), 404
 
 
 @app.route('/send_gilbert_enemies', methods=['GET'])
