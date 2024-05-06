@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // food 
-            document.getElementById('Food-stat').innerHTML = `Food: <b> ${data.Food} %</b>`;
+            document.getElementById('Food-stat').innerHTML = `Food gain : <b> ${data.Food} </b>`;
 
             if (data.upgrades.luck_cost == "max") {
                 document.getElementById('Food-button').innerHTML = `<b>Max Upgrade!</b>`;
