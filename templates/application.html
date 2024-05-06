@@ -215,6 +215,8 @@
 					<li role="tab" id="shop-tab-label-1" onclick="setActiveWindow('1')"><a class="text-shadow" >🗡️ Damage</a></li>
 					<li role="tab" id="shop-tab-label-5" onclick="setActiveWindow('5')"><a class="text-shadow">🔮 Luck</a></li>
 					<li role="tab" id="shop-tab-label-4" onclick="setActiveWindow('4')"><a class="text-shadow">💗 Regen</a></li>
+					<li role="tab" id="shop-tab-label-4" onclick="setActiveWindow('7')"><a class="text-shadow">🥓 Food</a></li>
+
 				</menu>
 
 				<div class="window" role="tabpanel" id="shop-tab-1" hidden>
@@ -293,6 +295,19 @@
 								<button class="like-btn" onclick="shopInteraction('GoldFarm')" id="GoldFarm-upgrade-button"><b>Upgrade</b> (10 gold)</button>
 							</section>
 						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="window" role="tabpanel" id="shop-tab-7" hidden>
+				<div class="window-body">
+					<div class="centerGilbert">
+						<p class="shop-anim rotate-vert-center" style="font-size: 55px; padding: 3px; margin: 3px; text-shadow: 2px 1px 2px rgba(3, 3, 3, 0.549)">🥓</p>
+						<p class="text-shadow" style="font-size: 13px" id="Food-stat">Food gain: <b> 0 </b></p>
+						<i>Upgrade the amount of Food you eat every 4 seconds!</i>
+						<section class="field-row" style="justify-content: center; margin-top: 7px">
+							<button class="like-btn" onclick="shopInteraction('Food')" id="Food-button"><b>Upgrade</b> (100 gold)</button>
+						</section>
 					</div>
 				</div>
 			</div>

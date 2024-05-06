@@ -85,6 +85,11 @@ gilbert_upgrade_prices = {
         "upgrade_cost": [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2500, 5000, 10000, 'max'],
         "maximum_upgrade": 14
     },
+    "Food": {
+        "upgrade_value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "upgrade_cost": [50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 'max'],
+        "maximum_upgrade": 9
+    },
 }
 
 debug = False
@@ -524,7 +529,11 @@ def send_updates():
                 if (int(time.time())) % 5 == 0:
                     gilbert_stats["gold"] = gilbert_stats.get("gold") + gilbert_stats.get("GoldFarm")
 
-
+            if gilbert_stats.get("stage") >= 3:
+                # Food implementation
+                if (int(time.time())) % 4 == 0:
+                    gilbert_stats["hunger"] = gilbert_stats.get("hunger") + gilbert_stats.get("Food")
+            
             # at the end of all this logic, emit the stats       
             socket.emit('recieve_gilbert_stats', gilbert_stats)
 
