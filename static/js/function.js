@@ -580,6 +580,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('GoldFarm-upgrade-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.GoldFarm_cost} gold)`;
             }
 
+            // food 
+            document.getElementById('Food-button').innerHTML = `Food: <b> ${data.Food} %</b>`;
+
+            if (data.upgrades.luck_cost == "max") {
+                document.getElementById('Food-button').innerHTML = `<b>Max Upgrade!</b>`;
+                document.getElementById('Food-button').disabled = true
+            } else {
+                document.getElementById('Food-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.Food_cost} gold)`;
+            }
             
         }
 
