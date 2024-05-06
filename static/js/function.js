@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // food 
-            document.getElementById('Food-button').innerHTML = `Food: <b> ${data.Food} %</b>`;
+            document.getElementById('Food-stat').innerHTML = `Food: <b> ${data.Food} %</b>`;
 
             if (data.upgrades.luck_cost == "max") {
                 document.getElementById('Food-button').innerHTML = `<b>Max Upgrade!</b>`;
@@ -590,6 +590,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('Food-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.Food_cost} gold)`;
             }
             
+            // document.getElementById('Treat-button').innerHTML = `Treat: <b> ${data.Treats} %</b>`;
+
+            // if (data.upgrades.luck_cost == "max") {
+            //     document.getElementById('Treat-button').innerHTML = `<b>Max Upgrade!</b>`;
+            //     document.getElementById('Treat-button').disabled = true
+            // } else {
+            //     document.getElementById('Treat-button').innerHTML = `<b>Upgrade</b> (${data.upgrades.Treat_cost} gold)`;
+            // }
         }
 
 
