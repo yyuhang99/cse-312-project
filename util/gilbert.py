@@ -191,7 +191,10 @@ def set_initial_gilbert(debug = False):
         "HealthPot_cost" : 10,
         # Gold farm implementation
         "GoldFarm" : 0,
-        "GoldFarm_cost" : 25
+        "GoldFarm_cost" : 25,
+        "Food" : 0,
+        "Food_cost": 50
+
     }
 
     gilbert_stats = {
@@ -212,6 +215,7 @@ def set_initial_gilbert(debug = False):
         "max_health": 100,
         "regen": 0,
         "GoldFarm": 0,
+        "Food": 0,
         "luck": 0,
         "enemies_defeated": 0,
 
